@@ -132,10 +132,10 @@ pnpm + Turborepo 모노레포와 품질 게이트·테스트 툴링을 세운다
 심고 `install → lint → type-check → test → build`로 확인한다.
 → 스킬 `setup-fe-project` · 규칙 20·50·90
 
-### 진행 중인 프로젝트에 새로 합류했을 때
+### 다른 프로젝트로 옮기거나 오랜만에 다시 볼 때
 
-`rules/00-core.md`와 `rules/05-working-with-claude.md`부터 읽어 스택과 협업 방식을 잡는다.
-나머지 규칙은 미리 외우지 않아도 된다. 첫 작업이 생기면 Claude에게 그대로 말하면
+`rules/00-core.md`와 `rules/05-working-with-claude.md`부터 다시 훑어 스택과 Claude와 작업하는
+방식을 되짚는다. 나머지 규칙은 미리 외우지 않아도 된다. 작업이 생기면 Claude에게 그대로 말하면
 `dev-workflow`가 알맞은 규칙·스킬로 안내한다.
 → 스킬 `dev-workflow` · 규칙 00·05
 
@@ -158,7 +158,7 @@ pnpm + Turborepo 모노레포와 품질 게이트·테스트 툴링을 세운다
 
 figma.com 노드 링크를 주면 `implement-from-figma`가 claude.ai Figma 커넥터로
 레이아웃·색·간격·변수를 읽는다. 값은 디자인 토큰에 매핑하고, 기존 컴포넌트를 재사용해
-우리 컨벤션대로 구현한 뒤 스크린샷과 대조한다.
+정해 둔 컨벤션대로 구현한 뒤 스크린샷과 대조한다.
 → 스킬 `implement-from-figma` · 규칙 37·30·35
 
 ### 새 기능/화면을 추가할 때
@@ -335,11 +335,11 @@ React 프로젝트를 세팅할 때 설치한다.
 | `prepare-commit`       | 커밋 전 브랜치 가드 + 관심사/중복/재사용 점검 + 메시지         |
 | `prepare-pr`           | 검증 runbook + PR 설명 작성 + 리뷰 포인트 요약                 |
 
-## 참고 템플릿 (../docs/ai/)
+## 참고 템플릿 (docs/ai/)
 
-- `error-toast-template.md` — API 에러 → 토스트 처리 패턴 (`rules/<fw>/error-handling`)
-- `pr-review-checklist.md` — PR 본문과 리뷰 체크리스트 (`rules/70`)
-- `ci-workflow-template.md` — pnpm + Turborepo용 GitHub Actions 워크플로 (`rules/90`)
+- [`error-toast-template.md`](./docs/ai/error-toast-template.md) — API 에러 → 토스트 처리 패턴 (`rules/<fw>/error-handling`)
+- [`pr-review-checklist.md`](./docs/ai/pr-review-checklist.md) — PR 본문과 리뷰 체크리스트 (`rules/70`)
+- [`ci-workflow-template.md`](./docs/ai/ci-workflow-template.md) — pnpm + Turborepo용 GitHub Actions 워크플로 (`rules/90`)
 
 ## 이 저장소가 실제로 동작하는 방식
 

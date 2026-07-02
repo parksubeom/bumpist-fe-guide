@@ -24,7 +24,7 @@
 
 ## 템플릿
 
-표준 에러/토스트 처리 패턴은 [`docs/ai/error-toast-template.md`](../../../docs/ai/error-toast-template.md) 참조.
+표준 에러/토스트 처리 패턴은 [`docs/ai/error-toast-template.md`](../../docs/ai/error-toast-template.md) 참조.
 
 > 이 문서는 팀 규약의 자리표시다. 실제 백엔드 에러 코드 카탈로그·envelope 형태가 확정되면
 > 그에 맞춰 구체화한다.

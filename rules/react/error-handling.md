@@ -19,5 +19,5 @@
 
 ## 템플릿
 
-표준 처리 패턴은 [`docs/ai/error-toast-template.md`](../../../docs/ai/error-toast-template.md) 참조
+표준 처리 패턴은 [`docs/ai/error-toast-template.md`](../../docs/ai/error-toast-template.md) 참조
 (React Query 버전으로 맞춰 사용).
