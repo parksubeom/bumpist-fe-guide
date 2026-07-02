@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" font-family="-apple-system, 'Segoe UI', 'Malgun Gothic', sans-serif">
+  <defs>
+    <linearGradient id="fist" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7c7bff"/>
+      <stop offset="1" stop-color="#a07bff"/>
+    </linearGradient>
+    <radialGradient id="spark" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffe27a"/>
+      <stop offset="0.55" stop-color="#ff9a4d"/>
+      <stop offset="1" stop-color="#ff7a45"/>
+    </radialGradient>
+    <!-- fist facing right; contact face near x=0 -->
+    <g id="fistShape" fill="url(#fist)">
+      <rect x="-98" y="-19" width="46" height="38" rx="16"/>
+      <rect x="-60" y="-34" width="54" height="68" rx="20"/>
+      <circle cx="-4" cy="-24" r="11"/>
+      <circle cx="-4" cy="-8" r="11"/>
+      <circle cx="-4" cy="8" r="11"/>
+      <circle cx="-4" cy="24" r="11"/>
+      <ellipse cx="-42" cy="-33" rx="13" ry="11"/>
+    </g>
+  </defs>
+
+  <rect width="256" height="256" rx="56" fill="#14162a"/>
+
+  <use href="#fistShape" transform="translate(118,138)"/>
+  <use href="#fistShape" transform="translate(138,138) scale(-1,1)"/>
+
+  <!-- impact sparkles -->
+  <path d="M0,-24 Q0,0 24,0 Q0,0 0,24 Q0,0 -24,0 Q0,0 0,-24 Z" transform="translate(128,120)" fill="url(#spark)"/>
+  <path d="M0,-10 Q0,0 10,0 Q0,0 0,10 Q0,0 -10,0 Q0,0 0,-10 Z" transform="translate(150,150)" fill="#ffd23f"/>
+  <path d="M0,-8 Q0,0 8,0 Q0,0 0,8 Q0,0 -8,0 Q0,0 0,-8 Z" transform="translate(104,156)" fill="#ff9a4d"/>
+</svg>

@@ -1,4 +1,16 @@
-# 프론트엔드 작업 가이드
+<p align="center">
+  <img src="./assets/banner.svg" alt="Bumpist Code — Bump the rules. Ship consistent frontends." width="100%">
+</p>
+
+<p align="center">
+  <img alt="Vue" src="https://img.shields.io/badge/Vue-3-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white">
+  <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white">
+  <img alt="Claude Code" src="https://img.shields.io/badge/Claude%20Code-skills-6d6afe?style=flat-square">
+  <img alt="Architecture" src="https://img.shields.io/badge/architecture-FSD-ff7a45?style=flat-square">
+</p>
+
+# Bumpist Code — 프론트엔드 작업 가이드
 
 이 저장소는 내가 프론트엔드를 만들 때 지키는 규칙과, 그 규칙을 실제 작업으로 옮겨 주는
 Claude 스킬을 모아 둔 곳이다. 사람이 읽어도 되고, Claude Code가 작업 전에 읽기도 한다.
