@@ -1,0 +1,23 @@
+# Rename to .gitignore at the monorepo root.
+node_modules
+.DS_Store
+
+# build outputs
+dist
+dist-ssr
+*.local
+
+# turbo
+.turbo
+
+# test / tooling artifacts
+coverage
+storybook-static
+playwright-report
+test-results
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.tsbuildinfo

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" font-family="-apple-system, 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <rect width="760" height="470" fill="#ffffff"/>
+
+  <!-- edges -->
+  <g stroke="#4b5563" stroke-width="1.6" fill="none" marker-end="url(#arrow2)">
+    <!-- rules -> CLAUDE.md -->
+    <path d="M160,182 V250"/>
+    <!-- CLAUDE.md -> runtime -->
+    <path d="M180,306 V340 H360 V368"/>
+    <!-- .claude/skills -> skills (points up into hub) -->
+    <path d="M590,250 V212 H400 V184"/>
+    <!-- runtime -> .claude/skills (points up) -->
+    <path d="M512,398 H640 V306"/>
+  </g>
+
+  <!-- hub -->
+  <rect x="40" y="30" width="680" height="152" rx="10" fill="#f8fafc" stroke="#334155" stroke-width="1.8"/>
+  <text x="60" y="56" fill="#111827" font-size="14.5" font-weight="700">claude/ — 팀 공유 허브 · 단일 출처 (커밋 · 브라우징)</text>
+
+  <rect x="66" y="78" width="184" height="86" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-width="1.4"/>
+  <text x="158" y="116" text-anchor="middle" fill="#111827" font-size="14" font-weight="700">rules/</text>
+  <text x="158" y="138" text-anchor="middle" fill="#6b7280" font-size="12">규칙 00~90</text>
+
+  <rect x="288" y="78" width="184" height="86" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-width="1.4"/>
+  <text x="380" y="116" text-anchor="middle" fill="#111827" font-size="14" font-weight="700">skills/</text>
+  <text x="380" y="138" text-anchor="middle" fill="#6b7280" font-size="12">스킬 7개</text>
+
+  <rect x="510" y="78" width="184" height="86" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-width="1.4"/>
+  <text x="602" y="116" text-anchor="middle" fill="#111827" font-size="14" font-weight="700">docs/ai/</text>
+  <text x="602" y="138" text-anchor="middle" fill="#6b7280" font-size="12">템플릿</text>
+
+  <!-- CLAUDE.md -->
+  <rect x="88" y="250" width="184" height="56" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.4"/>
+  <text x="180" y="283" text-anchor="middle" fill="#111827" font-size="13.5" font-weight="600">CLAUDE.md (루트)</text>
+
+  <!-- .claude/skills -->
+  <rect x="490" y="250" width="200" height="56" rx="8" fill="#ffffff" stroke="#334155" stroke-width="1.4" stroke-dasharray="5 3"/>
+  <text x="590" y="276" text-anchor="middle" fill="#111827" font-size="13" font-weight="600">.claude/skills</text>
+  <text x="590" y="294" text-anchor="middle" fill="#6b7280" font-size="11.5">심볼릭 링크</text>
+
+  <!-- runtime -->
+  <rect x="272" y="368" width="240" height="62" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.6"/>
+  <text x="392" y="396" text-anchor="middle" fill="#111827" font-size="14" font-weight="700">Claude Code 런타임</text>
+  <text x="392" y="416" text-anchor="middle" fill="#374151" font-size="12">규칙 적용 · 스킬 로드</text>
+
+  <!-- edge labels -->
+  <text x="168" y="222" fill="#4b5563" font-size="12" font-weight="600">@import</text>
+  <text x="406" y="206" fill="#4b5563" font-size="12" font-weight="600">가리킴</text>
+  <text x="648" y="352" fill="#4b5563" font-size="12" font-weight="600">읽음</text>
+</svg>

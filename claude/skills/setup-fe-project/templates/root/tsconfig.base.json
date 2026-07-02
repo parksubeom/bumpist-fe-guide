@@ -1,0 +1,13 @@
+{
+  // Shared strict compiler options. Each app's tsconfig.app.json extends this
+  // (after `@vue/tsconfig`) so every package in the monorepo enforces the same
+  // safety nets. See the setup-fsd skill and docs/adr/0007 for rationale.
+  "compilerOptions": {
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
