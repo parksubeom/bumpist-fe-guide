@@ -1,6 +1,6 @@
 {
   "name": "bumpist-code",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "프론트엔드(Vue·React·Next.js) 공통 규칙 + Claude Code 스킬을 프로젝트에 복사해 주는 CLI — 매번 같은 퀄리티로.",
   "bin": {
     "bumpist-code": "bin/cli.js"
