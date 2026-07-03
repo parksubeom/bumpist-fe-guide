@@ -68,6 +68,28 @@ git submodule update --remote .fe-guide
 pnpm install && pnpm run lint && pnpm run type-check && pnpm run test && pnpm run build
 ```
 
+## 버전 관리 (git 태그)
+
+허브는 릴리스마다 **git 태그**(`v1.2.0`)로 버전을 매긴다. submodule은 특정 커밋을 가리키므로
+**태그를 checkout 하면 그 버전에 고정**된다 — 포인터가 곧 버전 기록이라 별도 파일이 필요 없다.
+
+- **특정 버전으로 고정** — submodule 추가(1번) 후 그 안에서 태그를 checkout:
+  ```
+  cd .fe-guide && git checkout v0.1.0 && cd ..
+  git add .fe-guide && git commit -m "chore: pin guide v0.1.0"
+  ```
+- **지금 몇 버전인지** — `git -C .fe-guide describe --tags`
+- **버전 올리기/내리기** — `git submodule update --remote`(최신 추적) 대신 원하는 태그를 checkout:
+  ```
+  cd .fe-guide && git fetch --tags && git checkout v0.3.0 && cd ..
+  sh .fe-guide/apply-to-project.sh vue      # 규칙이 늘/줄었으면 @import 갱신
+  git add .fe-guide .claude/skills CLAUDE.md && git commit -m "chore: bump guide → v0.3.0"
+  ```
+- **옛 버전 패치** — 허브에서 그 태그로 유지보수 브랜치를 파생해 패치 태그(예: `v0.1.1`)를 낸다.
+
+버전 번호 의미(MAJOR/MINOR/PATCH)와 기여 정책(무엇을 허브에 올리나)은
+[README](./README.md#버전-관리-git-태그) 참고.
+
 ## 참고
 
 ### Windows에서 clone한 경우
