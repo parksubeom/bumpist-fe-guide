@@ -1,68 +1,65 @@
-# 설치 — 다른 프로젝트에서 이 가이드 참조하기
+# 설치 — 다른 프로젝트에서 이 가이드 적용하기 (복사)
 
-이 허브 저장소를 각 프로젝트에 **복사하지 않고 git submodule로 참조**한다. 한 곳(허브 repo)만
-고치고 각 프로젝트에서 `submodule update`하면 규칙·스킬이 함께 갱신된다.
+이 허브를 잠깐 받아 **AI가 쓰는 문서만 각 프로젝트에 복사**한다(서브모듈 X). 복사본이라 git을 몰라도 되고,
+서브모듈·윈도우 심볼릭 링크 함정이 없다. 허브 갱신은 자동 반영되지 않으므로, 최신화는 "다시 복사"로 한다(4번).
 
-## 1. 허브를 submodule로 추가
+## 1. 허브 받기 (임시)
 
 소비 프로젝트 루트에서:
 
 ```
-git submodule add git@github.com:parksubeom/bumpist-fe-guide.git .fe-guide
+git clone --depth 1 --branch v0.1.0 https://github.com/parksubeom/bumpist-fe-guide.git .bumpist
 ```
 
-경로(`.fe-guide`)는 자유. 이후 clone하는 사람은 `git submodule update --init` 한 번 필요.
-SSH 키가 없으면 HTTPS로: `https://github.com/parksubeom/bumpist-fe-guide.git`.
+`--branch v0.1.0`으로 버전을 고정한다(생략하면 최신). `degit`도 가능:
+`npx degit parksubeom/bumpist-fe-guide#v0.1.0 .bumpist`. 경로(`.bumpist`)는 복사 후 지울 임시 폴더다.
 
-## 2. 배선 (스킬 심볼릭 링크 + 규칙 @import)
+## 2. 복사 (스킬 + 규칙 + 템플릿)
 
-허브에 포함된 헬퍼를 프로젝트 루트에서 실행한다:
-
-첫 인자로 **프레임워크(`vue` 또는 `react`)**를 준다:
+허브에 포함된 헬퍼를 프로젝트 루트에서 실행한다. 첫 인자로 **프레임워크(`vue`/`react`)**, 둘째로 허브 경로:
 
 ```
-sh .fe-guide/apply-to-project.sh vue                # Vue 프로젝트
-sh .fe-guide/apply-to-project.sh react              # React 프로젝트
-sh .fe-guide/apply-to-project.sh vue vendor/guide   # submodule 경로가 다르면 2번째 인자
+sh .bumpist/apply-to-project.sh vue .bumpist      # Vue
+sh .bumpist/apply-to-project.sh react .bumpist    # React
 ```
 
-스크립트가 하는 일:
+`degit`로 받았으면(태그 정보가 없으므로) 셋째 인자로 버전을 준다: `sh .bumpist/apply-to-project.sh vue .bumpist v0.1.0`.
 
-- `.claude/skills` → `../.fe-guide/skills` **심볼릭 링크** 생성 (Claude Code는 `.claude/skills/`만 읽음).
-- 루트 `CLAUDE.md`에 붙여넣을 **규칙 @import 블록**을 출력 — **공통(`rules/*.md`) + 선택 프레임워크
-  (`rules/<vue|react>/*.md`)**. 예:
+스크립트가 하는 일(모두 **복사**, 링크 아님):
+
+- 스킬 → `.claude/skills/` (Claude Code는 `.claude/skills/`만 읽음. `setup-fe-project`는 부트스트랩 전용이라 제외).
+- 규칙 → `.claude/rules/` — **공통(`rules/*.md`) + 선택 프레임워크(`rules/<vue|react>/*.md`)**.
+- 템플릿 → `docs/ai/`.
+- 받은 버전을 `.claude/.guide-version`에 기록.
+- 루트 `CLAUDE.md`에 붙여넣을 **규칙 @import 블록**을 출력(복사된 위치 기준). 예:
   ```markdown
-  @.fe-guide/rules/00-core.md
+  @.claude/rules/00-core.md
   … (공통 rules/\*.md 전부)
-  @.fe-guide/rules/vue/code-style.md
+  @.claude/rules/vue/code-style.md
   … (rules/vue/\*.md 전부)
   ```
   이 줄들을 프로젝트 `CLAUDE.md`에 추가하면 규칙이 로드된다.
 
-수동으로 하려면 위 두 가지(심볼릭 링크 + @import)를 직접 해도 된다.
-
-## 3. 확인
+## 3. 임시 폴더 삭제 + 확인
 
 ```
+rm -rf .bumpist
 ls .claude/skills/     # 스킬 목록이 보이면 정상
 ```
 
-Claude Code 세션에서 스킬(`create-component` 등)이 인식되는지 확인.
+최종 프로젝트엔 임시 clone(`.bumpist`)이 남지 않고, 복사된 `.claude/skills`·`.claude/rules`·`docs/ai`와
+`.claude/.guide-version`만 있다. Claude Code 세션에서 스킬(`create-component` 등)이 인식되는지 확인한다.
 
-## 4. 갱신
+## 4. 갱신 (다시 복사)
 
-허브가 바뀌면 각 프로젝트에서:
+허브가 바뀌면 1~3번을 **원하는 버전으로 다시 실행**한다 — 헬퍼가 복사본을 덮어쓴다.
+규칙이 늘거나 줄면 출력된 @import 블록으로 `CLAUDE.md`도 갱신한다.
+(**자동 최신화는 안 된다** — 이 재복사가 갱신 방법이다.)
 
-```
-git submodule update --remote .fe-guide
-```
+## 5. 새 프로젝트 부트스트랩(권장)
 
-규칙이 늘거나 줄면 2번의 헬퍼를 다시 실행해 @import 블록을 갱신한다.
-
-## 5. 새 프로젝트 부트스트랩(선택)
-
-빈 프로젝트라면 `setup-fe-project` 스킬로 모노레포·품질 게이트·테스트 툴링을 구성한다.
-마지막 검증:
+빈 프로젝트라면 Claude Code에서 **"새 프로젝트 셋업해줘"** → `setup-fe-project` 스킬이 위 복사 +
+pnpm+Turborepo 모노레포·품질 게이트·테스트 툴링까지 한 번에 세우고 검증한다. 마지막 검증:
 
 ```
 pnpm install && pnpm run lint && pnpm run type-check && pnpm run test && pnpm run build
@@ -70,35 +67,19 @@ pnpm install && pnpm run lint && pnpm run type-check && pnpm run test && pnpm ru
 
 ## 버전 관리 (git 태그)
 
-허브는 릴리스마다 **git 태그**(`v1.2.0`)로 버전을 매긴다. submodule은 특정 커밋을 가리키므로
-**태그를 checkout 하면 그 버전에 고정**된다 — 포인터가 곧 버전 기록이라 별도 파일이 필요 없다.
+허브는 릴리스마다 **git 태그**(`v1.2.0`)로 버전을 매긴다. 복사 방식이라 받는 순간 그 버전이 프로젝트에
+고정된다(다시 복사하기 전엔 안 바뀜). 프로젝트마다 다른 버전을 써도 서로 독립이다.
 
-- **특정 버전으로 고정** — submodule 추가(1번) 후 그 안에서 태그를 checkout:
-  ```
-  cd .fe-guide && git checkout v0.1.0 && cd ..
-  git add .fe-guide && git commit -m "chore: pin guide v0.1.0"
-  ```
-- **지금 몇 버전인지** — `git -C .fe-guide describe --tags`
-- **버전 올리기/내리기** — `git submodule update --remote`(최신 추적) 대신 원하는 태그를 checkout:
-  ```
-  cd .fe-guide && git fetch --tags && git checkout v0.3.0 && cd ..
-  sh .fe-guide/apply-to-project.sh vue      # 규칙이 늘/줄었으면 @import 갱신
-  git add .fe-guide .claude/skills CLAUDE.md && git commit -m "chore: bump guide → v0.3.0"
-  ```
-- **옛 버전 패치** — 허브에서 그 태그로 유지보수 브랜치를 파생해 패치 태그(예: `v0.1.1`)를 낸다.
+- **특정 버전으로 받기** — 1번 clone에 `--branch <태그>`(degit이면 `#태그`). 생략하면 최신.
+- **채택 버전 기록** — 복사 시 `.claude/.guide-version`에 기록된다("이 프로젝트는 어느 표준 버전인지"가 남음). 이 파일도 커밋.
+- **버전 올리기/내리기** — 원하는 태그로 1~3번을 다시 실행한다.
+- **옛 버전 패치** — 특정 옛 계열만 고쳐야 하면 허브에서 그 태그로 유지보수 브랜치를 파생해 패치 태그(예: `v0.1.1`)를 낸다.
 
 버전 번호 의미(MAJOR/MINOR/PATCH)와 기여 정책(무엇을 허브에 올리나)은
 [README](./README.md#버전-관리-git-태그) 참고.
 
 ## 참고
 
-### Windows에서 clone한 경우
-
-Windows는 기본적으로 심볼릭 링크를 복원하지 못해 `.claude/skills`가 깨져 보일 수 있다.
-`git config --global core.symlinks true`(+ "개발자 모드") 후 다시 clone하거나, 헬퍼 대신
-`.fe-guide/skills`를 `.claude/skills`로 복사한다(수정은 항상 허브에서).
-
-### 복사 방식(대안)
-
-submodule을 쓰지 않을 거면 `.fe-guide` 대신 이 저장소 내용을 프로젝트에 복사하고 심볼릭 링크·
-@import 경로를 그에 맞게 바꾼다. 단 허브 갱신이 자동 반영되지 않아 드리프트가 생긴다.
+- **팀원 clone**: 복사본이라 그냥 `git clone <프로젝트>` 면 된다(서브모듈 초기화·심볼릭 링크 없음).
+- 원본 수정은 **항상 허브에서** 하고 각 프로젝트로 다시 복사한다(프로젝트의 복사본을 직접 고치면 다음
+  복사 때 덮어써진다). 단, 그 프로젝트 전용 프롬프트·스킬은 프로젝트 `.claude/`에 두고 허브엔 올리지 않는다.
