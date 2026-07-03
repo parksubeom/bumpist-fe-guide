@@ -8,7 +8,7 @@ git·서브모듈 지식이 필요 없고, 이 허브에 종속되지 않는다.
 소비 프로젝트 루트에서:
 
 ```
-npx bumpist-code@latest init vue      # 또는 react
+npx bumpist-code@latest init vue      # vue | react | next (생략하면 package.json에서 자동 감지)
 ```
 
 버전 고정: `npx bumpist-code@0.1.0 init vue` (생략하면 `@latest`).

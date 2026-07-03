@@ -22,7 +22,8 @@ function usage() {
 bumpist-code v${pkg.version}
 
 사용법:
-  npx bumpist-code init <vue|react>
+  npx bumpist-code init [vue|react|next]
+  (프레임워크 생략 시 package.json에서 자동 감지)
 
 하는 일 (모두 복사):
   - 스킬  → .claude/skills/   (setup-fe-project 제외)
@@ -33,16 +34,38 @@ bumpist-code v${pkg.version}
 `)
 }
 
-// 인자 파싱: `init vue` | `vue` 둘 다 허용
-const args = process.argv.slice(2).filter((a) => a !== 'init')
-const fw = args[0]
+const FRAMEWORKS = ['vue', 'react', 'next']
 
-if (fw === '-h' || fw === '--help' || !fw) {
-  usage()
-  process.exit(fw ? 0 : 1)
+// 소비 프로젝트 package.json에서 프레임워크 자동 감지 (next 우선 — Next는 react도 함께 가짐)
+function detectFramework() {
+  try {
+    const p = JSON.parse(fs.readFileSync(path.join(CWD, 'package.json'), 'utf8'))
+    const deps = { ...p.dependencies, ...p.devDependencies }
+    if (deps.next) return 'next'
+    if (deps.vue) return 'vue'
+    if (deps.react) return 'react'
+  } catch {}
+  return null
 }
-if (fw !== 'vue' && fw !== 'react') {
-  fail(`프레임워크는 vue 또는 react 여야 합니다. 받은 값: "${fw}"`)
+
+// 인자 파싱: `init vue` | `vue` 둘 다 허용, 없으면 자동 감지
+const args = process.argv.slice(2).filter((a) => a !== 'init')
+if (args[0] === '-h' || args[0] === '--help') {
+  usage()
+  process.exit(0)
+}
+let fw = args[0]
+let detected = false
+if (!fw) {
+  fw = detectFramework()
+  detected = true
+  if (!fw) {
+    usage()
+    fail('프레임워크를 감지하지 못했습니다 — vue·react·next 중 하나를 인자로 주세요.')
+  }
+}
+if (!FRAMEWORKS.includes(fw)) {
+  fail(`프레임워크는 vue·react·next 중 하나여야 합니다. 받은 값: "${fw}"`)
 }
 
 function copyDir(src, dest) {
@@ -62,7 +85,7 @@ function copyMdFiles(srcDir, destDir) {
   return n
 }
 
-console.log(`\nbumpist-code v${pkg.version} → ${fw}\n`)
+console.log(`\nbumpist-code v${pkg.version} → ${fw}${detected ? ' (자동 감지)' : ''}\n`)
 
 // 1) 스킬 복사 (setup-fe-project 제외)
 const skillsSrc = path.join(PKG_ROOT, 'skills')
