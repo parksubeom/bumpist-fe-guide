@@ -12,7 +12,8 @@ description: 컴포넌트를 팀 표준 패턴(interface Props, cva 변형 + cn 
 없으면(스펙/설명 기반) 이 스킬로 진행한다.
 
 - **Vue**: `templates/BaseButton/`(`.vue`/`.spec.ts`/`.stories.ts`/`index.ts`)이 복사 시작점.
-- **React**: `rules/react/code-style`의 패턴대로 `.tsx` + 스펙(RTL) + 스토리 작성(현재 번들 템플릿 없음).
+- **React·Next**: `templates/BaseButton-react/`(`.tsx`/`.spec.tsx`(RTL)/`.stories.tsx`/`index.ts`)이 복사 시작점.
+  (Next에서도 동일 컴포넌트를 쓴다. 스토리는 `@storybook/react-vite` / `@storybook/nextjs` 중 앱에 맞게 import.)
 - 공통: `cn`이 없으면 `templates/utils.ts`를 `shared/lib/utils.ts`로 복사(clsx + tailwind-merge, 프레임워크 무관).
 
 ## 입력

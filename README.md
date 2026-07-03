@@ -79,9 +79,9 @@ git add .claude docs/ai CLAUDE.md && git commit -m "chore: adopt bumpist-code gu
 ### 시나리오 B — 새 프로젝트를 처음부터 (빈 폴더)
 
 빈 폴더에서 위 A를 먼저 실행한 뒤, Claude Code에서 **"새 프로젝트 셋업해줘"** →
-`setup-fe-project`가 (Vue/React 확인 후) pnpm+Turborepo 모노레포·품질 게이트·테스트 툴링을 세우고
-`BaseButton`·예시 슬라이스를 심는다. (Next.js는 자동 부트스트랩 템플릿이 아직 없어 `create-next-app`
-등으로 앱을 만든 뒤 `rules/next/*` 규칙을 적용한다.) 마지막으로:
+`setup-fe-project`가 프레임워크(Vue·React·Next.js)를 확인하고 pnpm+Turborepo 모노레포·품질 게이트·
+테스트 툴링을 세운 뒤 `BaseButton`·예시 슬라이스를 심는다. (Vue·React는 앱 설정 템플릿을 그대로
+복사하고, Next.js는 `create-next-app` 위에 `templates/app-next/`를 얹어 FSD로 재조정한다.) 마지막으로:
 
 ```sh
 pnpm install && pnpm run lint && pnpm run type-check && pnpm run test && pnpm run build
@@ -183,11 +183,11 @@ npx bumpist-code@0.1.0 init vue
 
 ### 새 프로젝트를 세팅할 때
 
-빈 저장소에서 `setup-fe-project`를 부른다. Vue인지 React인지 먼저 묻고, 그 스택으로
+빈 저장소에서 `setup-fe-project`를 부른다. Vue·React·Next.js 중 무엇인지 먼저 묻고, 그 스택으로
 pnpm + Turborepo 모노레포와 품질 게이트·테스트 툴링을 세운다. 끝에 `BaseButton`과 예시 슬라이스를
-심고 `install → lint → type-check → test → build`로 확인한다.
-Next.js는 아직 이 자동 부트스트랩 대상이 아니라, `create-next-app`으로 앱을 만든 뒤 `rules/next/*`
-규칙과 이후 build 스킬을 그대로 쓴다.
+심고 `install → lint → type-check → test → build`로 확인한다. Vue·React는 앱 설정 템플릿
+(`templates/app`·`templates/app-react`)을 복사하고, Next.js는 `create-next-app` 위에
+`templates/app-next`(providers·next-intl·FSD 골격)를 얹는다.
 → 스킬 `setup-fe-project` · 규칙 20·50·90
 
 ### 다른 프로젝트로 옮기거나 오랜만에 다시 볼 때

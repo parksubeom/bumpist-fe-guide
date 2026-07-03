@@ -1,0 +1,39 @@
+{
+  // In a monorepo, also extend the shared base: use an array
+  //   "extends": ["./tsconfig.base.json", "../../tsconfig.base.json"]
+  // For a single package, keep just the options below.
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+
+    // --- Bundler mode (Vite) ---
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    // --- Strict + the extra safety nets we enforce project-wide ---
+    // (mirrored in tsconfig.base.json)
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    "erasableSyntaxOnly": true,
+    "noUncheckedSideEffectImports": true,
+
+    // Path mapping for cleaner imports.
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.spec.{ts,tsx}", "src/**/*.stories.{ts,tsx}", "e2e"]
+}

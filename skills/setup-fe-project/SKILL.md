@@ -29,48 +29,51 @@ description: 팀 표준 프론트엔드 모노레포(admin + service)를 pnpm wo
    `commitlint.config.ts`·`.size-limit.json` + `husky/`의 세 훅(pre-commit·commit-msg·pre-push).
    `pnpm install` 시 `prepare`가 husky를 초기화. `chmod +x .husky/*`. (`rules/50`)
 4. **FSD + 앱별 설정** — 각 앱에 `src/{app,pages,widgets,features,entities,shared}` 생성 후
-   `templates/app/`(Vue) 복사. eslint FSD boundaries는 프레임워크 무관, vite/vitest는 프레임워크
-   플러그인만 다름(Vue plugin vs React plugin).
+   프레임워크별 앱 템플릿을 복사: **Vue → `templates/app/`**, **React → `templates/app-react/`**.
+   각 템플릿의 `INSTALL.md`에 복사 파일 목록과 전제 devDependencies가 있다. eslint FSD boundaries는
+   프레임워크 무관, vite/vitest는 프레임워크 플러그인만 다르다.
 5. **Storybook** — Vue: `--type vue3`, React: `--type react`.
 6. **레퍼런스 컴포넌트/슬라이스** — `create-component`(프레임워크에 맞는 BaseButton),
    `create-slice`로 최소 골격.
 7. **검증** — `pnpm install && pnpm run lint && pnpm run type-check && pnpm run test && pnpm run build`
    - 커밋 1회로 husky 동작 확인.
 
-> **참고:** `templates/`의 앱 설정 실물은 현재 **Vue 기준**이다. React 앱 설정 템플릿(vite react
-> plugin, tsconfig, RTL setup 등)은 아직 번들되지 않았으니, React 선택 시 `rules/react/*`를 따르되
-> 앱 설정은 커뮤니티 표준(`@vitejs/plugin-react` 등)으로 맞춘다. (React 템플릿 번들은 후속 작업)
+> **참고:** 앱 설정 실물은 세 트랙 모두 번들돼 있다 — `templates/app/`(Vue) · `templates/app-react/`(React) ·
+> `templates/app-next/`(Next.js). Vue는 실전 검증됐고 React·Next는 표준 구성으로 새로 번들했으니,
+> 앱 생성기 기본과 병합해 쓰며 패키지 버전은 각 `INSTALL.md`를 따른다.
 
 ## Next.js 부트스트랩 (App Router)
 
 Next.js(App Router)는 Vite 모노레포 템플릿을 쓰지 않는다. **App Router가 라우팅·빌드를 강제**하므로
 `create-next-app`으로 앱을 세운 뒤 **FSD 레이어를 `src/`로 재조정**한다(`rules/next/project-structure`).
-템플릿 실물은 아직 번들되지 않았으니, 아래 절차 + `rules/next/*`를 SSoT로 따른다.
+앱 설정·프로바이더·i18n 실물은 **`templates/app-next/`**에 있다(`INSTALL.md` 참조) — 아래 절차대로
+복사해 쓰고 `rules/next/*`를 SSoT로 따른다.
 
 0. **사전 확인** — `node -v`(`^20.19 || >=22.12`), `pnpm -v`(없으면 `corepack enable pnpm`),
    대상 디렉토리가 비어 있고 git repo인지.
 1. **앱 생성** — `pnpm create next-app@latest` — **App Router · TypeScript · Tailwind CSS · ESLint · `src/` 디렉토리** 옵션 선택.
    (모노레포로 갈 거면 `apps/web`에 생성하고 루트에 `pnpm-workspace.yaml`·`turbo.json`을 얹는다 —
    `templates/root/`의 루트 게이트는 프레임워크 무관이라 그대로 복사·재사용 가능.)
-2. **공통 스택 설치** — `@tanstack/react-query` · `zustand` · `next-intl` · `openapi-typescript` +
-   `openapi-fetch` · `class-variance-authority` · `clsx` · `tailwind-merge`. 테스트는
-   `@testing-library/react` + `@testing-library/jest-dom`(Vitest) · `@playwright/test`. Storybook은 `@storybook/nextjs`.
-3. **품질 게이트** — 루트 게이트(oxlint·prettier·commitlint·husky·lint-staged·size-limit)는 `templates/root/`
-   그대로. ESLint는 `eslint-config-next`(+ import-x·FSD boundaries)를 얹고, `type-check`는 `tsc --noEmit`.
-4. **FSD × App Router 재조정** (`rules/next/project-structure`) —
+2. **공통 스택 설치** — `templates/app-next/INSTALL.md`의 devDependencies·런타임 목록대로 설치
+   (`next-intl`·React Query·Zustand·cva/clsx/tailwind-merge·RTL·Playwright 등). Storybook은 `@storybook/nextjs`.
+3. **앱 설정 복사** — `templates/app-next/`의 실물을 앱에 복사: `eslint.config.ts`(`eslint-config-next`
+   + import-x + FSD boundaries) · `tsconfig.json` · `next.config.ts`(next-intl) · `middleware.ts` ·
+   `vitest.config.ts`+`vitest.setup.ts` · `playwright.config.ts`. `type-check`는 `tsc --noEmit`.
+4. **FSD × App Router 재조정** (`rules/next/project-structure`, 템플릿에 골격 포함) —
    - `app/`(또는 `src/app/`)에는 **라우팅 특수 파일만**(`layout`·`page`·`loading`·`error`…), 얇게 유지.
    - FSD 레이어(`pages`·`widgets`·`features`·`entities`·`shared`)는 **`src/` 아래**.
-   - FSD `app` 레이어(프로바이더·전역 스타일)는 **root `layout.tsx` + `src/app/providers.tsx`**(클라 프로바이더 묶음)로.
-   - `QueryClientProvider`·`NextIntlClientProvider`·theme은 `providers.tsx`(`'use client'`)에서 등록.
-5. **i18n·데이터·에러 규약** — next-intl 설정(`src/shared/config/i18n/` + `middleware.ts`),
-   서버 fetch/Server Action 우선, `error.tsx`/`not-found.tsx` 경계. 각각 `rules/next/{i18n,state-and-data,error-handling}`.
-6. **레퍼런스 컴포넌트/슬라이스** — `create-component`(BaseButton)·`create-slice`로 최소 골격.
+   - FSD `app` 레이어(프로바이더·전역 스타일)는 **`src/app/layout.tsx` + `src/app/providers.tsx`**(템플릿 제공).
+   - `QueryClientProvider`·`NextIntlClientProvider`·theme은 `providers.tsx`(`'use client'`)에서 등록(템플릿 제공).
+5. **i18n·데이터·에러 규약** — next-intl 설정은 템플릿의 `src/shared/config/i18n/*` + `middleware.ts` +
+   `locales/{ko,en}/`. 서버 fetch/Server Action 우선, `error.tsx`/`not-found.tsx` 경계는 직접 추가.
+   각각 `rules/next/{i18n,state-and-data,error-handling}`.
+6. **레퍼런스 컴포넌트/슬라이스** — `create-component`(`templates/BaseButton-react/`)·`create-slice`로 최소 골격.
    `page.tsx`는 슬라이스의 `index.ts`만 import해 조립(`rules/next/routing`).
 7. **검증** — `pnpm install && pnpm run lint && pnpm run type-check && pnpm run test && pnpm run build`
    + 커밋 1회로 husky 동작 확인.
 
-> **참고:** Next.js용 앱 설정·프로바이더 템플릿 실물은 아직 번들되지 않았다. 위 절차와 `rules/next/*`를
-> 따르되 앱 설정은 `create-next-app` 기본 + 커뮤니티 표준으로 맞춘다. (Next 템플릿 번들은 후속 작업)
+> **참고:** `templates/app-next/`는 표준 구성으로 새로 번들한 것이다. `create-next-app` 기본 구조와
+> 병합해 쓰며, 패키지 버전은 `INSTALL.md`를 따른다. Vue처럼 실전 반복 검증이 쌓이면 조정될 수 있다.
 
 ## 원칙
 
