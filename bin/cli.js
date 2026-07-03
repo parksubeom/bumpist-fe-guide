@@ -145,4 +145,5 @@ if (!fs.existsSync(claudeMd)) {
   console.log(block)
   console.log('----------------------------------------')
 }
-console.log(`\n확인:  ls .claude/skills/\n`)
+console.log(`\n확인:  ls .claude/skills/`)
+console.log(`💡 디자인 craft 강화(선택):  npx impeccable install   → /impeccable init\n`)

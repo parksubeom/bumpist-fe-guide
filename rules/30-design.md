@@ -38,3 +38,14 @@
 
 - 클래스는 Tailwind 유틸 + 토큰(`rules/<fw>/code-style`), variant는 cva/cn. 다크모드 `dark:`.
 - 토큰 생성·교체는 `gen-tokens`(`docs/adr/0010`). 새 팔레트가 오면 이 문서 기본값보다 토큰이 우선한다.
+
+## 심화 디자인 (impeccable 연계)
+
+이 문서는 **기본선(baseline)**이다. 미감을 더 끌어올리는 **디자인 craft**(정교한 타이포·색·모션·위계·비평)는
+[impeccable](https://github.com/pbakaus/impeccable) 스킬에 위임한다 — 설치돼 있으면 그쪽으로 넘긴다.
+
+- 컴포넌트/화면 마감: `/impeccable polish`, UX 비평: `/impeccable critique`, 기술 점검: `/impeccable audit`,
+  타이포/색/모션: `/impeccable typeset`·`colorize`·`animate`.
+- **우선순위**: 프로젝트에 **디자인 토큰** 또는 impeccable의 **`DESIGN.md`(비주얼 SoT)** 가 있으면 **그게 최종 권위**.
+  이 문서의 기본값은 둘 다 없을 때의 fallback이다. 두 소스가 충돌하면 토큰/`DESIGN.md`를 따른다.
+- 설치 안내: `npx impeccable install` → `/impeccable init` (자동 설치하지 않는다 — 사용자가 직접).
