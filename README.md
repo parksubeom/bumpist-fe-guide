@@ -339,6 +339,7 @@ React 프로젝트를 세팅할 때 설치한다.
 | `10-guardrails.md`           | 임의 생성·변경·삭제 금지선                          |
 | `15-working-sessions.md`     | 작업 세션 — 계획 먼저, 맥락 얇게, 자율성·가드 균형  |
 | `20-project-structure.md`    | 모노레포 배치와 FSD 계층 (프레임워크 무관)          |
+| `30-design.md`               | 디자인 원칙 — 뉴트럴·플랫·브랜드 컬러 존중, 토큰 우선 |
 | `35-accessibility.md`        | 접근성(a11y) — 시맨틱·키보드·폼·모달·대비           |
 | `37-figma-to-code.md`        | Figma 디자인을 토큰·컨벤션에 맞춰 정확히 옮기기     |
 | `40-api-types.md`            | openapi-typescript 타입 생성 (공통)                 |
