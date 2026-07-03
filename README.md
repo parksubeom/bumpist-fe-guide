@@ -80,7 +80,8 @@ git add .claude docs/ai CLAUDE.md && git commit -m "chore: adopt bumpist-code gu
 
 빈 폴더에서 위 A를 먼저 실행한 뒤, Claude Code에서 **"새 프로젝트 셋업해줘"** →
 `setup-fe-project`가 (Vue/React 확인 후) pnpm+Turborepo 모노레포·품질 게이트·테스트 툴링을 세우고
-`BaseButton`·예시 슬라이스를 심는다. 마지막으로:
+`BaseButton`·예시 슬라이스를 심는다. (Next.js는 자동 부트스트랩 템플릿이 아직 없어 `create-next-app`
+등으로 앱을 만든 뒤 `rules/next/*` 규칙을 적용한다.) 마지막으로:
 
 ```sh
 pnpm install && pnpm run lint && pnpm run type-check && pnpm run test && pnpm run build
@@ -185,6 +186,8 @@ npx bumpist-code@0.1.0 init vue
 빈 저장소에서 `setup-fe-project`를 부른다. Vue인지 React인지 먼저 묻고, 그 스택으로
 pnpm + Turborepo 모노레포와 품질 게이트·테스트 툴링을 세운다. 끝에 `BaseButton`과 예시 슬라이스를
 심고 `install → lint → type-check → test → build`로 확인한다.
+Next.js는 아직 이 자동 부트스트랩 대상이 아니라, `create-next-app`으로 앱을 만든 뒤 `rules/next/*`
+규칙과 이후 build 스킬을 그대로 쓴다.
 → 스킬 `setup-fe-project` · 규칙 20·50·90
 
 ### 다른 프로젝트로 옮기거나 오랜만에 다시 볼 때
@@ -288,6 +291,7 @@ npx impeccable install    # 그다음 AI 툴에서 /impeccable init
 ## 스택
 
 ![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?logo=tailwindcss&logoColor=white)
 ![TanStack Query](https://img.shields.io/badge/TanStack%20Query-FF4154?logo=reactquery&logoColor=white)
@@ -313,21 +317,31 @@ npx impeccable install    # 그다음 AI 툴에서 /impeccable init
 ![React Query](https://img.shields.io/badge/React%20Query-FF4154?logo=reactquery&logoColor=white)
 ![Testing Library](https://img.shields.io/badge/Testing%20Library-E33332?logo=testinglibrary&logoColor=white)
 
-**프레임워크는 프로젝트당 하나 — Vue 또는 React**(시작 시 `setup-fe-project`가 물음). 공통은
-동일하고 프레임워크별만 갈린다.
+**Next.js** (App Router) ·
+![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
+![Zustand](https://img.shields.io/badge/Zustand-433E38)
+![React Query](https://img.shields.io/badge/React%20Query-FF4154?logo=reactquery&logoColor=white)
+![next-intl](https://img.shields.io/badge/next--intl-000000?logo=i18next&logoColor=white)
 
-- **공통**: Vite + TypeScript strict · 서버 상태 TanStack Query · 타입세이프 API openapi-typescript ·
+**프레임워크는 프로젝트당 하나 — Vue · React · Next.js 중 택1.** 공통은 동일하고 프레임워크별만
+갈린다. (모노레포 부트스트랩 `setup-fe-project`는 현재 Vue·React를 자동 세팅하고, Next.js는 규칙
+`rules/next/*`를 제공한다 — 아래 "새 프로젝트를 세팅할 때" 참고.)
+
+- **공통**: TypeScript strict · 서버 상태 TanStack Query · 타입세이프 API openapi-typescript ·
   Tailwind v4 + `cva`/`cn` + 디자인 토큰 · Feature-Sliced Design · pnpm + Turborepo 모노레포 ·
   Vitest + Playwright + Storybook · oxlint + ESLint + Prettier + commitlint + husky
-- **Vue**: Vue Router · Pinia · Vue Query · vue-i18n · `@vue/test-utils`
-- **React**: React Router · Zustand · React Query · react-i18next · React Testing Library
+  (Vue·React는 Vite 번들러, Next.js는 자체 빌드/App Router)
+- **Vue**: Vite · Vue Router · Pinia · Vue Query · vue-i18n · `@vue/test-utils`
+- **React**: Vite · React Router · Zustand · React Query · react-i18next · React Testing Library
+- **Next.js**: App Router · RSC 서버 fetch + Server Action · Zustand · React Query · next-intl · React Testing Library
 
 ## 라이브러리 & 툴
 
-실제로 쓰는 패키지 목록. 버전은 이 repo `package.json` 기준(Vue). React 열은 표준 대응 패키지이며,
-React 프로젝트를 세팅할 때 설치한다.
+실제로 쓰는 패키지 목록. 버전은 이 repo `package.json` 기준(Vue). React·Next.js 열은 표준 대응
+패키지이며, 해당 프레임워크로 세팅할 때 설치한다.
 
-### 공통 (Vue·React 동일)
+### 공통 (Vue·React·Next.js 동일)
 
 | 범주           | 패키지                                                                                                                                                                                 |
 | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -345,18 +359,18 @@ React 프로젝트를 세팅할 때 설치한다.
 
 ### 프레임워크별
 
-| 범주            | Vue                                                   | React                                                  |
-| --------------- | ----------------------------------------------------- | ------------------------------------------------------ |
-| 코어            | `vue` ^3.5                                            | `react` + `react-dom` ^19                              |
-| 라우팅          | `vue-router` ^5                                       | `react-router-dom`                                     |
-| 클라이언트 상태 | `pinia` ^3                                            | `zustand`                                              |
-| 서버 상태       | `@tanstack/vue-query`                                 | `@tanstack/react-query`                                |
-| i18n            | `vue-i18n` ^11                                        | `react-i18next` + `i18next`                            |
-| Vite 플러그인   | `@vitejs/plugin-vue` · `vite-plugin-vue-devtools`     | `@vitejs/plugin-react`                                 |
-| 타입체크        | `vue-tsc` (+ `@vue/tsconfig`)                         | `tsc`                                                  |
-| 컴포넌트 테스트 | `@vue/test-utils`                                     | `@testing-library/react` + `@testing-library/jest-dom` |
-| Storybook       | `@storybook/vue3-vite`                                | `@storybook/react-vite`                                |
-| ESLint 플러그인 | `eslint-plugin-vue` · `@vue/eslint-config-typescript` | `eslint-plugin-react-hooks` · `eslint-plugin-react`    |
+| 범주            | Vue                                                   | React                                                  | Next.js (App Router)                                 |
+| --------------- | ----------------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------- |
+| 코어            | `vue` ^3.5                                            | `react` + `react-dom` ^19                              | `next` + `react` + `react-dom` ^19                   |
+| 라우팅          | `vue-router` ^5                                       | `react-router-dom`                                     | App Router 파일 기반(내장, 별도 패키지 없음)         |
+| 클라이언트 상태 | `pinia` ^3                                            | `zustand`                                              | `zustand`                                            |
+| 서버 상태       | `@tanstack/vue-query`                                 | `@tanstack/react-query`                                | RSC fetch/Server Action + `@tanstack/react-query`    |
+| i18n            | `vue-i18n` ^11                                        | `react-i18next` + `i18next`                            | `next-intl`                                          |
+| 번들러·플러그인 | `@vitejs/plugin-vue` · `vite-plugin-vue-devtools`     | `@vitejs/plugin-react`                                 | Next 자체 빌드(Turbopack/webpack) — Vite 미사용      |
+| 타입체크        | `vue-tsc` (+ `@vue/tsconfig`)                         | `tsc`                                                  | `tsc`                                                |
+| 컴포넌트 테스트 | `@vue/test-utils`                                     | `@testing-library/react` + `@testing-library/jest-dom` | `@testing-library/react` + `@testing-library/jest-dom` |
+| Storybook       | `@storybook/vue3-vite`                                | `@storybook/react-vite`                                | `@storybook/nextjs`                                  |
+| ESLint 플러그인 | `eslint-plugin-vue` · `@vue/eslint-config-typescript` | `eslint-plugin-react-hooks` · `eslint-plugin-react`    | `eslint-config-next` (+ `eslint-plugin-react-hooks`) |
 
 > 새 패키지 추가는 임의로 하지 않고 근거(필요성·대안·번들 영향)를 밝히고 승인받는다(`rules/10`).
 
@@ -407,7 +421,7 @@ React 프로젝트를 세팅할 때 설치한다.
 | `create-component`     | 컴포넌트 + 스토리 + 스펙 스캐폴딩 (`templates/BaseButton`)     |
 | `implement-from-figma` | Figma MCP로 디자인을 읽어 토큰·컨벤션대로 구현                 |
 | `create-slice`         | FSD 슬라이스(ui/model/api + public API) 스캐폴딩               |
-| `gen-api-types`        | API 타입 재생성 + Query 훅 연결(Vue/React)                     |
+| `gen-api-types`        | API 타입 재생성 + Query 훅 연결(Vue Query / React Query·Next)  |
 | `gen-tokens`           | Token Studio export → Tailwind 디자인 토큰(tokens.css) 재생성  |
 | `write-test`           | 단위·컴포넌트·통합(MSW)·E2E 테스트 작성                        |
 | `debug-issue`          | 버그를 재현→가설→검증→최소 수정→회귀 스펙으로 체계적으로 해결  |
