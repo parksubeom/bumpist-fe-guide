@@ -1,0 +1,37 @@
+{
+  "name": "bumpist-code",
+  "version": "0.1.0",
+  "description": "프론트엔드(Vue·React) 공통 규칙 + Claude Code 스킬을 프로젝트에 복사해 주는 CLI — 매번 같은 퀄리티로.",
+  "bin": {
+    "bumpist-code": "bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "rules",
+    "skills",
+    "docs"
+  ],
+  "keywords": [
+    "claude-code",
+    "frontend",
+    "vue",
+    "react",
+    "feature-sliced-design",
+    "conventions",
+    "ai",
+    "scaffolding"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parksubeom/bumpist-fe-guide.git"
+  },
+  "homepage": "https://github.com/parksubeom/bumpist-fe-guide#readme",
+  "bugs": {
+    "url": "https://github.com/parksubeom/bumpist-fe-guide/issues"
+  },
+  "author": "parksubeom",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
