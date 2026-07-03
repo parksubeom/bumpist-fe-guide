@@ -3,7 +3,7 @@
 # 허브를 받아온(degit 또는 clone) 뒤, 소비 프로젝트 루트에서 실행하고, 끝나면 임시 폴더를 지운다.
 #
 #   npx degit parksubeom/bumpist-fe-guide .bumpist
-#   sh .bumpist/apply-to-project.sh <vue|react> .bumpist
+#   sh .bumpist/apply-to-project.sh <vue|react|next> .bumpist
 #   rm -rf .bumpist
 #
 # 하는 일 (모두 **복사**, 링크 아님):
@@ -17,10 +17,10 @@ FW="${1:-}"
 HUB="${2:-.bumpist}"
 
 case "$FW" in
-  vue | react) ;;
+  vue | react | next) ;;
   *)
-    echo "사용법: sh $HUB/apply-to-project.sh <vue|react> [hub경로]"
-    echo "  프레임워크(vue 또는 react)를 첫 인자로 지정하세요."
+    echo "사용법: sh $HUB/apply-to-project.sh <vue|react|next> [hub경로]"
+    echo "  프레임워크(vue·react·next 중 하나)를 첫 인자로 지정하세요."
     exit 1
     ;;
 esac

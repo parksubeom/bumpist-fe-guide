@@ -16,7 +16,7 @@ npx bumpist-code@latest init vue      # vue | react | next (생략하면 package
 ## 2. 하는 일
 
 - 스킬 → `.claude/skills/` (Claude Code는 `.claude/skills/`만 읽음. `setup-fe-project`는 부트스트랩 전용이라 제외).
-- 규칙 → `.claude/rules/` — 공통(`rules/*.md`) + 선택 프레임워크(`rules/<vue|react>/*.md`).
+- 규칙 → `.claude/rules/` — 공통(`rules/*.md`) + 선택 프레임워크(`rules/<vue|react|next>/*.md`).
 - 템플릿 → `docs/ai/`.
 - 받은 버전 → `.claude/.guide-version` 기록.
 - `CLAUDE.md` — 없으면 @import 블록과 함께 생성, 있으면 추가할 줄만 출력. 예:
