@@ -15,8 +15,8 @@
 
 > 👋 **개발이 처음이거나 비개발자라면 → [쉬운 설명 먼저 보기](./비개발자-가이드.md).** (이 아래는 개발자용)
 
-**Vue · React · Next.js 프론트엔드 표준을 `npx` 한 줄로.** 공통 규칙 + 프레임워크 3트랙 + Claude 스킬 14개 —
-프레임워크 자동 감지, 디자인 기본선(+ impeccable 페어링). 매번 같은 퀄리티로.
+**Vue · React · Next.js 프론트엔드 표준을 `npx` 한 줄로.** 공통 규칙 + 프레임워크 3트랙(규칙·스킬·앱 템플릿) +
+Claude 스킬 14개 — 프레임워크 자동 감지, 디자인 기본선(+ impeccable 페어링). 매번 같은 퀄리티로.
 
 ```sh
 npx bumpist-code@latest init      # 프레임워크 자동 감지 → 규칙·스킬을 .claude에 배선
@@ -417,8 +417,8 @@ npx impeccable install    # 그다음 AI 툴에서 /impeccable init
 | ---------------------- | -------------------------------------------------------------- |
 | `dev-workflow`         | 작업 유형을 판별해 알맞은 규칙·스킬로 안내하는 진입점          |
 | `plan-feature`         | 큰·모호한 작업을 인터뷰→단계 계획→확인 후 build 스킬로 위임    |
-| `setup-fe-project`     | 모노레포 + 품질 게이트 + 테스트 툴링 부트스트랩 (`templates/`) |
-| `create-component`     | 컴포넌트 + 스토리 + 스펙 스캐폴딩 (`templates/BaseButton`)     |
+| `setup-fe-project`     | 모노레포 + 품질 게이트 + 테스트 툴링 부트스트랩 (앱 템플릿 Vue·React·Next 3트랙) |
+| `create-component`     | 컴포넌트 + 스토리 + 스펙 스캐폴딩 (`BaseButton` Vue/`.vue`·React·Next/`.tsx`) |
 | `implement-from-figma` | Figma MCP로 디자인을 읽어 토큰·컨벤션대로 구현                 |
 | `create-slice`         | FSD 슬라이스(ui/model/api + public API) 스캐폴딩               |
 | `gen-api-types`        | API 타입 재생성 + Query 훅 연결(Vue Query / React Query·Next)  |
