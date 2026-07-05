@@ -12,18 +12,25 @@
     "docs"
   ],
   "keywords": [
+    "claude",
     "claude-code",
+    "claude-skills",
+    "agent-skills",
+    "ai-coding",
+    "vibe-coding",
     "frontend",
     "vue",
     "react",
     "nextjs",
-    "next",
     "app-router",
-    "rsc",
+    "typescript",
     "feature-sliced-design",
+    "code-quality",
+    "coding-standards",
     "conventions",
-    "ai",
-    "scaffolding"
+    "scaffolding",
+    "cli",
+    "ai"
   ],
   "repository": {
     "type": "git",
