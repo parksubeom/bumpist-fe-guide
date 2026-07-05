@@ -68,9 +68,28 @@ if (!FRAMEWORKS.includes(fw)) {
   fail(`프레임워크는 vue·react·next 중 하나여야 합니다. 받은 값: "${fw}"`)
 }
 
+// 수동 재귀 복사·삭제. fs.cpSync/fs.rmSync 의 { recursive: true } 를 쓰지 않는 이유:
+// Node 24.x 일부 빌드가 Windows에서 재귀 fs 작업 중 네이티브 크래시
+// (STATUS_STACK_BUFFER_OVERRUN, exit 3221226505)를 일으킨다. readdir + copyFileSync/unlink/rmdir
+// 조합은 버전 무관하게 안전하다.
 function copyDir(src, dest) {
   fs.mkdirSync(dest, { recursive: true })
-  fs.cpSync(src, dest, { recursive: true })
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const s = path.join(src, entry.name)
+    const d = path.join(dest, entry.name)
+    if (entry.isDirectory()) copyDir(s, d)
+    else if (entry.isFile()) fs.copyFileSync(s, d)
+  }
+}
+
+function removeDir(target) {
+  if (!fs.existsSync(target)) return
+  for (const entry of fs.readdirSync(target, { withFileTypes: true })) {
+    const t = path.join(target, entry.name)
+    if (entry.isDirectory()) removeDir(t)
+    else fs.unlinkSync(t)
+  }
+  fs.rmdirSync(target)
 }
 
 function copyMdFiles(srcDir, destDir) {
@@ -96,7 +115,7 @@ for (const name of fs.readdirSync(skillsSrc)) {
   const s = path.join(skillsSrc, name)
   if (!fs.statSync(s).isDirectory()) continue
   if (name === 'setup-fe-project') continue
-  fs.rmSync(path.join(skillsDest, name), { recursive: true, force: true })
+  removeDir(path.join(skillsDest, name)) // 재실행 시 기존 스킬 폴더 정리 (수동 재귀 — Node 24 안전)
   copyDir(s, path.join(skillsDest, name))
   skillCount++
 }

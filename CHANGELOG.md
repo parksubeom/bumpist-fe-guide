@@ -20,6 +20,10 @@ Next 트랙 **실전 검증** 릴리스. 실서비스 MVP([re-pin](https://githu
 
 ### Fixed
 
+- **[설치 자체가 안 됨]** `bin/cli.js`가 `fs.cpSync`/`fs.rmSync`의 `{ recursive: true }`를 썼는데,
+  Node 24.x 일부 빌드가 Windows에서 이 재귀 fs 작업 중 네이티브 크래시(STATUS_STACK_BUFFER_OVERRUN)를
+  일으켜 `npx bumpist-code init`이 배너만 출력하고 아무것도 복사하지 못한 채 죽었다
+  → 의존성 없는 수동 재귀 복사/삭제로 교체(Node 버전 무관 안전). fresh 설치·재실행 모두 검증.
 - **[빌드 깨짐]** Next.js가 `src/pages`를 Pages Router로 예약해 FSD의 `pages` 레이어와 충돌
   → Next 트랙에서 화면 레이어를 `pageViews`로 개명. `rules/next/project-structure.md` 재작성,
   `rules/20-project-structure.md`에 예외 크로스레퍼런스, `app-next` ESLint boundaries·SKILL·INSTALL 정합.
