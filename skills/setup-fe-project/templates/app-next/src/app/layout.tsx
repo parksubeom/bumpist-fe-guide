@@ -1,6 +1,6 @@
 // Root layout — thin: sets <html lang>, loads server messages, mounts Providers.
-// Route screens live in src/pages/* slices; page.tsx assembles them
-// (rules/next/project-structure, routing).
+// Route screens live in src/pageViews/* slices (Next reserves src/pages for the
+// Pages Router); page.tsx assembles them (rules/next/project-structure, routing).
 import { hasLocale } from 'next-intl'
 import { getMessages, getLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'

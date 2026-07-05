@@ -56,13 +56,17 @@ Next.js(App Router)는 Vite 모노레포 템플릿을 쓰지 않는다. **App Ro
    `templates/root/`의 루트 게이트는 프레임워크 무관이라 그대로 복사·재사용 가능.)
 2. **공통 스택 설치** — `templates/app-next/INSTALL.md`의 devDependencies·런타임 목록대로 설치
    (`next-intl`·React Query·Zustand·cva/clsx/tailwind-merge·RTL·Playwright 등). Storybook은 `@storybook/nextjs`.
-3. **앱 설정 복사** — `templates/app-next/`의 실물을 앱에 복사: `eslint.config.ts`(`eslint-config-next`
-   + import-x + FSD boundaries) · `tsconfig.json` · `next.config.ts`(next-intl) · `middleware.ts` ·
+3. **앱 설정 복사** — `templates/app-next/`의 실물을 앱에 복사: `eslint.config.ts`(typescript-eslint
+   + import-x + FSD boundaries, `eslint-config-next` 안 씀 — INSTALL.md 참조) · `tsconfig.json` ·
+   `next.config.ts`(next-intl) · `middleware.ts` · `postcss.config.mjs` ·
    `vitest.config.ts`+`vitest.setup.ts` · `playwright.config.ts`. `type-check`는 `tsc --noEmit`.
 4. **FSD × App Router 재조정** (`rules/next/project-structure`, 템플릿에 골격 포함) —
+   - **라우팅 디렉토리는 하나만**: `src/app/` 또는 루트 `app/` 중 하나. 반대편에 `app` 폴더를 만들면
+     Next의 라우팅 판정이 꼬여 빌드가 깨진다.
    - `app/`(또는 `src/app/`)에는 **라우팅 특수 파일만**(`layout`·`page`·`loading`·`error`…), 얇게 유지.
-   - FSD 레이어(`pages`·`widgets`·`features`·`entities`·`shared`)는 **`src/` 아래**.
-   - FSD `app` 레이어(프로바이더·전역 스타일)는 **`src/app/layout.tsx` + `src/app/providers.tsx`**(템플릿 제공).
+   - FSD 레이어는 **`src/` 아래** — 단, 화면 레이어는 **`pageViews`**(`src/pages`는 Next가
+     Pages Router로 예약해 빌드가 깨짐): `pageViews`·`widgets`·`features`·`entities`·`shared`.
+   - FSD `app` 레이어(프로바이더·전역 스타일)는 **라우팅 디렉토리 안의 `layout.tsx` + `providers.tsx`**(템플릿 제공).
    - `QueryClientProvider`·`NextIntlClientProvider`·theme은 `providers.tsx`(`'use client'`)에서 등록(템플릿 제공).
 5. **i18n·데이터·에러 규약** — next-intl 설정은 템플릿의 `src/shared/config/i18n/*` + `middleware.ts` +
    `locales/{ko,en}/`. 서버 fetch/Server Action 우선, `error.tsx`/`not-found.tsx` 경계는 직접 추가.
@@ -72,8 +76,9 @@ Next.js(App Router)는 Vite 모노레포 템플릿을 쓰지 않는다. **App Ro
 7. **검증** — `pnpm install && pnpm run lint && pnpm run type-check && pnpm run test && pnpm run build`
    + 커밋 1회로 husky 동작 확인.
 
-> **참고:** `templates/app-next/`는 표준 구성으로 새로 번들한 것이다. `create-next-app` 기본 구조와
-> 병합해 쓰며, 패키지 버전은 `INSTALL.md`를 따른다. Vue처럼 실전 반복 검증이 쌓이면 조정될 수 있다.
+> **참고:** `templates/app-next/`는 실서비스 MVP 부트스트랩에서 실전 검증·조정됐다(pageViews 개명,
+> typescript-eslint 전환, vitest 수집 범위 한정). `create-next-app` 기본 구조와 병합해 쓰며, 패키지
+> 버전은 `INSTALL.md`를 따른다. Windows/pnpm 환경 이슈는 INSTALL.md의 트러블슈팅 절 참고.
 
 ## 원칙
 

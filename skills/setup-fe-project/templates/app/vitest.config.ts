@@ -10,9 +10,13 @@ export default mergeConfig(
   defineConfig({
     test: {
       environment: 'happy-dom',
-      // Unit/component specs live next to source as `*.spec.ts`.
+      // 우리 소스의 스펙만 수집 — `.claude/`(가이드 복사본) 안의 스킬 템플릿 spec까지
+      // 집으면 다른 프레임워크 import로 깨진다.
+      include: ['src/**/*.spec.ts'],
       // Playwright owns everything under `e2e/`.
-      exclude: [...configDefaults.exclude, 'e2e/**'],
+      exclude: [...configDefaults.exclude, 'e2e/**', '.claude/**'],
+      // 부트스트랩 직후 스펙 0개는 실패가 아니다.
+      passWithNoTests: true,
       root: fileURLToPath(new URL('./', import.meta.url)),
       coverage: {
         provider: 'v8',

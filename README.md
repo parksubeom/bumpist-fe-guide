@@ -370,7 +370,7 @@ npx impeccable install    # 그다음 AI 툴에서 /impeccable init
 | 타입체크        | `vue-tsc` (+ `@vue/tsconfig`)                         | `tsc`                                                  | `tsc`                                                |
 | 컴포넌트 테스트 | `@vue/test-utils`                                     | `@testing-library/react` + `@testing-library/jest-dom` | `@testing-library/react` + `@testing-library/jest-dom` |
 | Storybook       | `@storybook/vue3-vite`                                | `@storybook/react-vite`                                | `@storybook/nextjs`                                  |
-| ESLint 플러그인 | `eslint-plugin-vue` · `@vue/eslint-config-typescript` | `eslint-plugin-react-hooks` · `eslint-plugin-react`    | `eslint-config-next` (+ `eslint-plugin-react-hooks`) |
+| ESLint 플러그인 | `eslint-plugin-vue` · `@vue/eslint-config-typescript` | `eslint-plugin-react-hooks` · `eslint-plugin-react`    | `typescript-eslint` (config-next는 flat/pnpm 마찰로 미사용) |
 
 > 새 패키지 추가는 임의로 하지 않고 근거(필요성·대안·번들 영향)를 밝히고 승인받는다(`rules/10`).
 

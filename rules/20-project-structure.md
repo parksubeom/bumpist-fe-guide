@@ -27,6 +27,9 @@ repo/
 app → pages → widgets → features → entities → shared
 ```
 
+> ⚠️ **Next.js 트랙 예외:** Next는 `src/pages`를 Pages Router로 예약하므로 화면 레이어 이름을
+> **`pageViews`**로 쓴다(서열은 동일). `rules/next/project-structure` 참조. Vue·React(Vite)는 `pages` 그대로.
+
 - **규칙**: 한 계층은 자기 자신과 **엄격히 하위인** 계층만 import할 수 있다.
   예) `features`는 `entities`/`shared`는 되지만 `pages`는 절대 안 됨.
 - `eslint-plugin-boundaries`가 빌드를 실패시켜 강제한다. 위반은 억제하지 말고 구조를 고친다.
