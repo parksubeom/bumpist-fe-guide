@@ -1,0 +1,84 @@
+name: "🐛 버그 리포트"
+description: "규칙·스킬·CLI·앱 템플릿이 기대와 다르게 동작할 때"
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        재현 가능한 정보가 있으면 훨씬 빨리 고칠 수 있습니다. 아는 만큼만 채워도 괜찮습니다.
+
+  - type: dropdown
+    id: track
+    attributes:
+      label: 트랙
+      description: 어느 프레임워크 트랙에서 발생했나요?
+      options:
+        - Vue
+        - React
+        - Next.js (App Router)
+        - 공통 (트랙 무관)
+        - 모르겠음
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 영역
+      description: 문제가 어디에 있나요?
+      options:
+        - CLI (npx bumpist-code init)
+        - 규칙 (rules/)
+        - 스킬 (skills/)
+        - 앱 템플릿 (skills/setup-fe-project/templates/app*)
+        - 문서 (README · install.md 등)
+        - 기타 / 모르겠음
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: bumpist-code 버전
+      description: "소비 프로젝트라면 `cat .claude/.guide-version`, 아니면 사용한 `npx bumpist-code@<버전>`"
+      placeholder: "예: 0.5.1"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 무엇이 잘못됐나
+      description: 기대한 동작과 실제 동작을 나눠서 적어 주세요.
+      placeholder: |
+        기대: pnpm run test 가 통과한다
+        실제: .claude/ 안의 스킬 템플릿 spec까지 수집되어 실패한다
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: 재현 방법
+      description: 명령과 순서를 그대로 적어 주세요. 빈 폴더에서 재현되면 가장 좋습니다.
+      placeholder: |
+        1. mkdir demo && cd demo && npx bumpist-code@0.5.1 init next
+        2. Claude Code에서 "새 프로젝트 셋업해줘"
+        3. pnpm run test
+    validations:
+      required: true
+
+  - type: textarea
+    id: env
+    attributes:
+      label: 환경
+      description: OS · Node · 패키지 매니저 · 프레임워크 버전
+      placeholder: "예: Windows 11 · Node 22 · pnpm 9 · next 15"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 로그 · 에러 메시지 (선택)
+      description: 관련 터미널 출력이나 스크린샷이 있으면 붙여 주세요.
+      render: shell
