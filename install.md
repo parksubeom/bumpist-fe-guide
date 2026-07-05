@@ -11,7 +11,7 @@ git·서브모듈 지식이 필요 없고, 이 허브에 종속되지 않는다.
 npx bumpist-code@latest init vue      # vue | react | next (생략하면 package.json에서 자동 감지)
 ```
 
-버전 고정: `npx bumpist-code@0.1.0 init vue` (생략하면 `@latest`).
+버전 고정: `npx bumpist-code@0.5.1 init vue` (생략하면 `@latest`).
 
 ## 2. 하는 일
 
@@ -68,8 +68,8 @@ npm에 semver(git 태그와 동일: `0.1.0`)로 배포한다. 받는 순간 그 
 npm/npx를 못 쓰는 환경이면 degit(또는 clone)으로 직접 복사한다:
 
 ```
-npx degit parksubeom/bumpist-fe-guide#v0.1.0 .bumpist
-sh .bumpist/apply-to-project.sh vue .bumpist v0.1.0
+npx degit parksubeom/bumpist-fe-guide#v0.5.1 .bumpist
+sh .bumpist/apply-to-project.sh vue .bumpist v0.5.1
 rm -rf .bumpist
 ```
 
