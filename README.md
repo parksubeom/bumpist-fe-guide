@@ -4,6 +4,7 @@
 
 <p align="center">
   <img alt="npm" src="https://img.shields.io/npm/v/bumpist-code?style=flat-square&color=6d6afe&label=bumpist-code">
+  <img alt="npm downloads" src="https://img.shields.io/npm/dt/bumpist-code?style=flat-square&color=20C20E&label=downloads">
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white">
   <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white">
