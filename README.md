@@ -502,6 +502,6 @@ npx impeccable install    # 그다음 AI 툴에서 /impeccable init
 
 ## 도움이 됐다면
 
-- ⭐ **Star** — 이 가이드가 프로젝트 하나라도 덜 무너지게 했다면, Star 하나가 다음 버전의 동력이 된다.
+- ⭐ **Star** — 이 가이드 도움이 됐다면!
 - 🔗 **공유** — 바이브 코딩은 하는데 구조·퀄리티가 불안한 동료에게는 `npx bumpist-code@latest init` 한 줄이면 충분하다.
 - 🐛 **피드백** — 버그·개선 제안은 [이슈](https://github.com/parksubeom/bumpist-fe-guide/issues)로. 실전에서 깨진 사례일수록 환영한다.
