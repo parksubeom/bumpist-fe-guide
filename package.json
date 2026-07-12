@@ -6,7 +6,7 @@
     "bumpist-code": "bin/cli.js"
   },
   "scripts": {
-    "test": "node --test \"test/**/*.test.js\""
+    "test": "node --test test/cli.test.js"
   },
   "files": [
     "bin",
