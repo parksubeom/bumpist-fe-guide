@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: test (${{ matrix.os }}, node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # engines.node 는 >=18. Windows + Node 24 는 과거 설치 크래시가 났던 조합이라
+        # 반드시 포함한다 — 재귀 fs 회귀가 다시 나면 여기서 잡힌다.
+        os: [ubuntu-latest, windows-latest]
+        node: [18, 20, 22, 24]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # 의존성 제로 프로젝트 — install 단계 없음. 바로 스모크 테스트.
+      - name: Run CLI smoke tests
+        run: npm test
