@@ -15,31 +15,40 @@
 
 # Bumpist Code — 프론트엔드 작업 가이드
 
-> 👋 **개발이 처음이거나 비개발자라면 → [쉬운 설명 먼저 보기](./비개발자-가이드.md).** (이 아래는 개발자용)
-> **English summary → [README.en.md](./README.en.md)**
+**바이브 코딩은 빠른데, 프로젝트마다 구조가 다르고 퀄리티가 복불복이다.**
+AI에게 "화면 만들어줘"라고만 하면 매번 폴더 배치도, 컴포넌트 작성법도, 테스트도 제각각으로 나온다.
 
-**Vue · React · Next.js 프론트엔드 표준을 `npx` 한 줄로.** 공통 규칙 + 프레임워크 3트랙(규칙·스킬·앱 템플릿) +
-Claude 스킬 14개 — 프레임워크 자동 감지, 디자인 기본선(+ impeccable 페어링). 매번 같은 퀄리티로.
+Bumpist Code는 프론트엔드 표준(폴더 구조·컴포넌트·테스트·커밋)을 **Claude Code 스킬로 배선**해서,
+AI가 작업 전에 그 규칙을 읽고 **매번 같은 방식으로** 만들게 한다. 규칙을 외울 필요 없이 말로 시키면 된다.
 
 ```sh
 npx bumpist-code@latest init      # 프레임워크 자동 감지 → 규칙·스킬을 .claude에 배선. 이게 설치의 전부다.
 ```
 
-> 필요한 건 **Node 18+** 와 **[Claude Code](https://claude.com/claude-code)** 뿐. 별도 계정·서버·설정 없음.
-> Next.js 트랙은 실서비스 MVP([re-pin](https://github.com/parksubeom/re-pin)) 부트스트랩으로 실전 검증됐다(v0.5.1) → [실전 사례](#실전-사례-showcase).
+> 필요한 건 **Node 18+** 와 **[Claude Code](https://claude.com/claude-code)** 뿐. 별도 계정·서버·설정·의존성 없음.
+> Vue · React · Next.js 3트랙, Claude 스킬 14개. 실서비스 MVP([re-pin](https://github.com/parksubeom/re-pin))
+> 부트스트랩으로 실전 검증됐다(v0.5.1). → [30초면 체감된다](#다른-프로젝트에-적용하기-npx) · [실전 사례](#실전-사례-showcase)
 
-이 저장소는 내가 프론트엔드를 만들 때 지키는 규칙과, 그 규칙을 실제 작업으로 옮겨 주는
-Claude 스킬을 모아 둔 곳이다. 사람이 읽어도 되고, Claude Code가 작업 전에 읽기도 한다.
+<sub>
+👋 개발이 처음이거나 비개발자라면 → <a href="./비개발자-가이드.md"><b>쉬운 설명 먼저 보기</b></a> ·
+🌐 <a href="./README.en.md">English</a> ·
+📖 용어가 낯설면 <a href="./glossary.md">glossary</a> ·
+🎨 디자인 심화는 <a href="#디자인-지향">impeccable 페어링</a>
+</sub>
 
-어떤 프로젝트를 만들든 폴더 구조, 컴포넌트 작성법, 테스트, 커밋 방식을 일관되게 유지하는 게 목표다.
-규칙을 다 외우지 않아도 매번 같은 퀄리티로 작업할 수 있다.
+## 이게 맞는 도구인지 (읽고 시작)
 
-> 🎨 **디자인 심화는 [impeccable](https://github.com/pbakaus/impeccable)과 함께 쓰길 권장한다** — 자동 설치가
-> 아니라, 원하면 **직접** `npx impeccable install`. 여기선 디자인 *기본선*(뉴트럴·플랫·브랜드 컬러·접근성)만
-> 잡고, *심화 craft*(polish·critique·typeset·motion)는 impeccable에 맡긴다. 둘 다 `.claude`에 깔면 **구조·품질은
-> bumpist-code, 디자인 미감은 impeccable**. 안 깔아도 기본선은 그대로 동작한다.
+솔직하게 적는다. 이건 **모두를 위한 범용 툴이 아니라, 특정 방식을 지지하는 표준**이다.
 
-> 용어(컴포넌트·슬라이스·커밋·PR·CI…)가 낯설면 [glossary.md](./glossary.md)를 참고한다. 쉬운 말로 풀어 뒀다.
+- ✅ **잘 맞는 경우** — **Claude Code로 프론트엔드를 짓고**, 프로젝트가 늘어날수록 구조·퀄리티가
+  들쭉날쭉해서 힘든 팀/개인. Vue · React · Next.js(App Router) 중 하나를 쓰고, TypeScript를 쓴다.
+- 🤔 **얹기만 하면 되는 경우** — 이미 코드가 있는 프로젝트라면 `init`은 **규칙·스킬 문서만 복사**한다.
+  네 빌드·번들러·패키지 매니저는 그대로 두고 건드리지 않는다. 부담 없이 붙였다 뗄 수 있다.
+- ⚠️ **전제가 세지는 지점** — *새 프로젝트를 처음부터* 세우는 `setup-fe-project`는 의견이 강하다:
+  **pnpm + Turborepo 모노레포 + Feature-Sliced Design**을 깐다. 이 스택이 싫으면 이 스킬만 안 쓰면
+  된다(규칙·다른 스킬은 그대로 쓸 수 있다). npm/yarn만 쓰거나 FSD를 안 쓰는 팀은 여기서 갈린다.
+- ❌ **안 맞는 경우** — Claude Code를 안 쓰거나, Angular · Svelte · Solid 등 지원 밖 프레임워크거나,
+  이미 팀 표준이 확고해서 남의 규칙을 들일 이유가 없는 경우.
 
 ## 바로가기
 
