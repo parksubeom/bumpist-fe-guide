@@ -3,7 +3,9 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/parksubeom/bumpist-fe-guide/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/parksubeom/bumpist-fe-guide/ci.yml?branch=main&style=flat-square&label=CI"></a>
   <img alt="npm" src="https://img.shields.io/npm/v/bumpist-code?style=flat-square&color=6d6afe&label=bumpist-code">
+  <img alt="npm downloads" src="https://img.shields.io/npm/dt/bumpist-code?style=flat-square&color=20C20E&label=downloads">
   <img alt="Vue" src="https://img.shields.io/badge/Vue-3-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white">
   <img alt="React" src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178C6?style=flat-square&logo=typescript&logoColor=white">
@@ -14,16 +16,29 @@
 # Bumpist Code
 
 > **Bump the rules. Ship consistent frontends.**
-> Frontend standards for Vue · React · Next.js, plus 14 Claude Code skills that enforce them — set up in your project with one command.
+
+**Vibe coding is fast, but structure and quality vary from project to project.**
+Ask an AI to "build a screen" and you get different folder layouts, component patterns, and tests every time.
+
+Bumpist Code wires frontend standards (structure, components, tests, commits) into **Claude Code skills**,
+so the AI reads the rules before it works and builds **the same way every time**. No conventions to memorize — just describe what you want.
 
 ```sh
 npx bumpist-code@latest init   # auto-detects vue | react | next, wires rules & skills into .claude/
 ```
 
-All you need is **Node 18+** and **[Claude Code](https://claude.com/claude-code)**. No account, no server, no extra config.
+All you need is **Node 18+** and **[Claude Code](https://claude.com/claude-code)**. No account, no server, no extra config, zero dependencies.
 
-> **Full documentation is in Korean** — this page is a summary for English readers.
-> See the [Korean README](./README.md) for the complete guide.
+<sub>🇰🇷 The Korean <a href="./README.md">README</a> carries a few extra sections (detailed scenarios, version policy, a beginner walkthrough), but this page stands on its own. · 📖 <a href="./glossary.md">Glossary</a></sub>
+
+## Is this the right tool for you?
+
+Being honest: this isn't a neutral, one-size-fits-all utility — it's an **opinionated standard**.
+
+- ✅ **Great fit** — you **build frontends with Claude Code**, and structure/quality drift as your project count grows. You're on Vue · React · or Next.js (App Router), with TypeScript.
+- 🤔 **Just layering it on** — for an existing project, `init` **only copies rule and skill docs**. Your build, bundler, and package manager are left untouched. Easy to add and remove.
+- ⚠️ **Where the opinions get strong** — bootstrapping a *new* project with `setup-fe-project` is opinionated: it sets up a **pnpm + Turborepo monorepo with Feature-Sliced Design**. Don't want that stack? Skip this one skill — the rules and other skills still work.
+- ❌ **Not for you** — if you don't use Claude Code, you're on an unsupported framework (Angular · Svelte · Solid), or your team already has a firm standard.
 
 ## Why
 
